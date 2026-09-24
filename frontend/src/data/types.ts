@@ -24,8 +24,8 @@ export interface Artist {
   photo: string
   /** 대표곡 */
   mainSong: Song
-  /** 대표곡 음원 파일 (public/audio 기준) */
-  audioSrc: string
+  /** YouTube 공식 업로드 영상 id (v= 파라미터 값). 숨겨진 플레이어로 배경 음악처럼 재생 */
+  youtubeVideoId: string
   /** 유사곡 4곡 */
   similar: Song[]
   /** 영수증 키워드 (예: "여자 솔로 / 인디") */

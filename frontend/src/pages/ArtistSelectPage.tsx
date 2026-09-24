@@ -38,8 +38,9 @@ export function ArtistSelectPage() {
   }, [artists])
 
   useEffect(() => {
-    if (current) play(current.audioSrc)
-  }, [current, play])
+    if (current?.youtubeVideoId) play(current.youtubeVideoId)
+    else stop()
+  }, [current, play, stop])
 
   // 화면을 떠나면 정지
   useEffect(() => () => stop(), [stop])

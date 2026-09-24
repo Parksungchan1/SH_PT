@@ -14,7 +14,7 @@ export const appConfig = {
   introAfterTapMs: 1500,
 
   /** 백엔드 API 준비 전까지 목업 데이터/목업 출력 사용 */
-  useMock: true,
+  useMock: false,
 
   /** 목업 출력 시 "출력중" 화면을 유지하는 시간(ms) */
   mockPrintDelayMs: 2500,
@@ -22,9 +22,12 @@ export const appConfig = {
   /** 백엔드 API 기본 주소 (useMock=false 일 때 사용) */
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080',
 
+  /** 출력 작업 상태를 확인하는 폴링 간격(ms). admin-client가 실제로 프린터에 보낼 때까지 걸리는 시간 */
+  printPollIntervalMs: 1000,
+
+  /** 출력 상태 폴링을 포기하는 최대 시간(ms) */
+  printPollTimeoutMs: 60_000,
+
   /** 카드 캐러셀: 손가락 스와이프 허용 여부 */
   enableSwipe: true,
-
-  /** 영수증에 표시할 날짜 (행사 기간) */
-  receiptDate: '2026-10-26-31',
 } as const

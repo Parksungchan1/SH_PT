@@ -1,8 +1,13 @@
-import { appConfig } from '../config/appConfig'
 import { sumPlaytime } from '../data/artists'
 import type { Artist } from '../data/types'
 import { LogoMark } from './Logo'
 import './Receipt.css'
+
+const todayDate = () => {
+  const d = new Date()
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+}
 
 /** 영수증 (대표곡 + 유사곡 4곡 = 5곡) */
 export function Receipt({ artist }: { artist: Artist }) {
@@ -15,7 +20,7 @@ export function Receipt({ artist }: { artist: Artist }) {
 
       <div className="receipt__meta">
         <span className="receipt__label">DATE</span>
-        <span className="receipt__date">{appConfig.receiptDate}</span>
+        <span className="receipt__date">{todayDate()}</span>
         <span className="receipt__brand">Wavelog</span>
       </div>
 

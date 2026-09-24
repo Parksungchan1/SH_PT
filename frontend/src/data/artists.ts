@@ -35,7 +35,8 @@ const make = (
   // 현재 album.jpg 는 Figma에서 가져온 이미지라 곡명/아티스트 글자가 포함되어 있음.
   // 원본 앨범아트로 교체하면 coverHasText 를 false 로 바꾸면 됨 (앱이 글자를 직접 그림)
   mainSong: { ...song(id, 'album.jpg', mainTitle, opts.mainArtistLabel ?? name, mainPlaytime), coverHasText: true },
-  audioSrc: `/audio/${id}.mp3`,
+  // 목업 데이터는 유튜브 영상 id가 없음 -- 백엔드 연동 후에는 client.ts가 실제 id를 채워줌
+  youtubeVideoId: '',
   similar: similar.map(([t, a, p], i) => song(id, `sim${i + 1}.jpg`, t, a, p)),
   keywords,
 })
