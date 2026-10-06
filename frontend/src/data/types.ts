@@ -26,6 +26,8 @@ export interface Artist {
   mainSong: Song
   /** YouTube 공식 업로드 영상 id (v= 파라미터 값). 숨겨진 플레이어로 배경 음악처럼 재생 */
   youtubeVideoId: string
+  /** 배경 재생 볼륨 (0~100). 영상마다 원본 마스터링 음량이 달라서 생기는 체감 음량 차이를 맞추는 용도 — 기본 100 */
+  volumePercent?: number
   /** 유사곡 4곡 */
   similar: Song[]
   /** 영수증 키워드 (예: "여자 솔로 / 인디") */

@@ -39,6 +39,7 @@ interface ApiArtist {
   tags: string[]
   imageUrl: string
   youtubeVideoId: string
+  volumePercent?: number
   mainSong: ApiSong
   similarSongs: ApiSong[]
   keywords: string
@@ -58,6 +59,7 @@ function mapArtist(a: ApiArtist): Artist {
     photo: mediaUrl(a.imageUrl),
     mainSong: mapSong(a.mainSong),
     youtubeVideoId: a.youtubeVideoId,
+    volumePercent: a.volumePercent ?? 100,
     similar: a.similarSongs.map(mapSong),
     keywords: a.keywords,
   }

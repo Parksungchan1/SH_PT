@@ -24,7 +24,7 @@ const make = (
   mainPlaytime: string,
   keywords: string,
   similar: [string, string, string][],
-  opts: { shortName?: string; mainArtistLabel?: string } = {},
+  opts: { shortName?: string; mainArtistLabel?: string; youtubeVideoId?: string; volumePercent?: number } = {},
 ): Artist => ({
   id,
   name,
@@ -35,8 +35,10 @@ const make = (
   // 현재 album.jpg 는 Figma에서 가져온 이미지라 곡명/아티스트 글자가 포함되어 있음.
   // 원본 앨범아트로 교체하면 coverHasText 를 false 로 바꾸면 됨 (앱이 글자를 직접 그림)
   mainSong: { ...song(id, 'album.jpg', mainTitle, opts.mainArtistLabel ?? name, mainPlaytime), coverHasText: true },
-  // 목업 데이터는 유튜브 영상 id가 없음 -- 백엔드 연동 후에는 client.ts가 실제 id를 채워줌
-  youtubeVideoId: '',
+  // 공식 업로드 영상 id — 숨겨진 플레이어로 배경 재생. volumePercent는 전부 100으로 통일해
+  // 트랙별 체감 음량 차이가 없게 맞춤 (귀로 들어보고 특정 곡이 유난히 크거나 작으면 이 값만 조정)
+  youtubeVideoId: opts.youtubeVideoId ?? '',
+  volumePercent: opts.volumePercent ?? 100,
   similar: similar.map(([t, a, p], i) => song(id, `sim${i + 1}.jpg`, t, a, p)),
   keywords,
 })
@@ -47,63 +49,63 @@ export const artists: Artist[] = [
     ['금붕어', '한로로', '03:32'],
     ['곰팡이', '공원', '03:29'],
     ['클라우드 쿠쿠랜드', '정우', '03:36'],
-  ], { shortName: '윤마치' }),
+  ], { shortName: '윤마치', youtubeVideoId: 'dsKxzpcsDR0' }),
 
   make('touched', '터치드', ['강렬', '밴드', '하드사운드'], 'Alive', '03:32', '강한 사운드 / 밴드', [
     ['Bad Sniper', '터치드', '03:34'],
     ['Player 1', 'KARDI (카디)', '03:39'],
     ['Rush', '더 픽스', '03:31'],
     ['먹이사슬', '한로로', '03:22'],
-  ]),
+  ], { youtubeVideoId: 'qlpaukDvEr4' }),
 
   make('owol', '오월오일', ['청량', '밴드', '초여름'], 'Lunch Time', '03:17', '초여름 / 동화st', [
     ['슈슈', '신인류', '04:10'],
     ['New Hippie Generation', '페퍼톤스', '03:44'],
     ['아멜리아', '포터블 구르브 나인', '04:12'],
     ['눈이 마주쳤을때', 'O.O.O', '03:17'],
-  ], { mainArtistLabel: '오월오일 ( 五月五日 )' }),
+  ], { mainArtistLabel: '오월오일 ( 五月五日 )', youtubeVideoId: 'iWtPhKNOgcU' }),
 
   make('atlus', 'ATLUS sound team', ['인트로', '재즈', '느좋'], 'Color Your Night', '03:47', '인트로느좋 / 얼터너티브', [
     ['COMPLEX', '고고학', '05:11'],
     ['GOGO', '심아일랜드', '03:42'],
     ['GOSU', '라쿠네라마', '02:49'],
     ['Ghosts are bored', '87DANCE', '01:12'],
-  ], { shortName: 'ATLUS', mainArtistLabel: 'ATLUS Sound Team' }),
+  ], { shortName: 'ATLUS', mainArtistLabel: 'ATLUS Sound Team', youtubeVideoId: 'j9Sn1nFGQQ8' }),
 
   make('leedoor', '리도어', ['몽환', '밴드', '서정적인'], '영원은 그렇듯', '03:58', '서정적인 / 몽환적인', [
     ['춤을 춰요', '라쿠나', '04:20'],
     ['열기구', 'SURL (설)', '03:59'],
     ['Ride', 'wave to earth', '03:48'],
     ['LOBSTER KING', 'Tuesday Beach Club', '03:17'],
-  ]),
+  ], { youtubeVideoId: 'E5BLkMGxDgQ' }),
 
   make('oneokrock', 'ONE OK ROCK', ['밴드', '달리자', '락사운드'], '完全感覚Dreamer', '04:12', '달리는 / 락 사운드', [
     ['Get Your Gun', '브로큰발렌타인', '03:37'],
     ['비켜ㅕㅕㅕ', 'Snake Chicken Soup', '04:31'],
     ['집 (feat. 유미)', '극동아시아타이거즈', '03:28'],
     ['혁명의 연인들', '전기뱀장어', '03:45'],
-  ]),
+  ], { youtubeVideoId: 'xGbxsiBZGPI' }),
 
   make('juhyerin', '주혜린', ['하우스', '전자음악', '감도높은'], 'BUSY BOY', '03:15', '하우스 풍 / 고감도', [
     ['Hit the Bang', '라쿠네라마', '04:55'],
     ['HEADLOCK', 'Luci Gang', '01:59'],
     ['집 (feat. 유미)', '하우즈룰즈', '04:05'],
     ['Intro(Absolute)', '롤러코스터', '01:12'],
-  ]),
+  ], { youtubeVideoId: '1KX9Z9TFoos' }),
 
   make('87dance', '87DANCE', ['리듬감', '밴드', '박자감'], 'Beautiful Complex', '03:42', '구르브한 / 박자감있는', [
     ['Skunk (feat. Cory Wong)', 'Bump2Soul', '04:26'],
     ['의심스러워', '술탄오브더디스코', '03:35'],
     ['곱슬머리', '잭킹콩', '03:22'],
     ['WHAT TIME IS IT NOW?', 'SURL (설)', '03:35'],
-  ], { shortName: '87댄스' }),
+  ], { shortName: '87댄스', youtubeVideoId: 'OXeLRxNqN6g' }),
 
   make('yb', 'YB', ['하드사운드', '인디', '솔로'], 'Rebellion (feat. Xdinary Heroes)', '03:45', '하드 / 강한 / 난해한', [
     ['iNSTEAD!', 'Xdinary Heroes', '02:57'],
     ['울트라맨이야', '서태지', '03:25'],
     ['Drown', 'Bring Me The Horizon', '03:42'],
     ['Killing In the Name', 'Rage Against The Machine', '05:13'],
-  ]),
+  ], { youtubeVideoId: 'n9PhiPcYI3g' }),
 ]
 
 export const findArtist = (id: string | undefined) => artists.find((a) => a.id === id)

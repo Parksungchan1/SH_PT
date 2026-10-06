@@ -38,7 +38,7 @@ export function ArtistSelectPage() {
   }, [artists])
 
   useEffect(() => {
-    if (current?.youtubeVideoId) play(current.youtubeVideoId)
+    if (current?.youtubeVideoId) play(current.youtubeVideoId, current.volumePercent ?? 100)
     else stop()
   }, [current, play, stop])
 

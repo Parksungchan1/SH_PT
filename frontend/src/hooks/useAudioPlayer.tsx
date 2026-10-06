@@ -3,14 +3,15 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 /**
  * 앱 전체에서 하나의 YouTube 플레이어를 공유합니다 (화면엔 절대 안 보이게, 오디오만 재생).
  * - unlock(): 사용자 터치 이벤트 안에서 호출해 모바일 자동재생 잠금을 해제
- * - play(videoId): 카드가 바뀔 때 해당 아티스트의 대표곡(YouTube 공식 업로드)을 재생 (이전 곡은 정지)
+ * - play(videoId, volumePercent): 카드가 바뀔 때 해당 아티스트의 대표곡(YouTube 공식 업로드)을 재생 (이전 곡은 정지)
+ *   영상마다 원본 마스터링 음량이 달라서, volumePercent(0~100)로 체감 음량을 맞춘다 (기본 100 = 전부 동일)
  * - stop(): 정지
  */
 interface AudioPlayer {
   unlocked: boolean
   currentSrc: string | null
   unlock: () => void
-  play: (videoId: string) => void
+  play: (videoId: string, volumePercent?: number) => void
   stop: () => void
 }
 
@@ -19,6 +20,7 @@ interface YTPlayer {
   loadVideoById: (videoId: string) => void
   stopVideo: () => void
   seekTo: (seconds: number, allowSeekAhead: boolean) => void
+  setVolume: (volume: number) => void
   destroy: () => void
 }
 interface YTPlayerEvent {
@@ -50,6 +52,7 @@ function loadYouTubeApi(): Promise<void> {
 export function AudioProvider({ children }: { children: ReactNode }) {
   const playerRef = useRef<YTPlayer | null>(null)
   const pendingVideoIdRef = useRef<string | null>(null)
+  const pendingVolumeRef = useRef<number>(100)
   const [unlocked, setUnlocked] = useState(false)
   const [currentSrc, setCurrentSrc] = useState<string | null>(null)
 
@@ -76,6 +79,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         playerVars: { autoplay: 0, controls: 0, disablekb: 1, playsinline: 1 },
         events: {
           onReady: () => {
+            playerRef.current?.setVolume(pendingVolumeRef.current)
             if (pendingVideoIdRef.current) playerRef.current?.loadVideoById(pendingVideoIdRef.current)
           },
           // <audio loop> 대체: 끝까지 재생되면 처음부터 다시
@@ -100,10 +104,12 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     setUnlocked(true)
   }, [])
 
-  const play = useCallback((videoId: string) => {
+  const play = useCallback((videoId: string, volumePercent = 100) => {
     pendingVideoIdRef.current = videoId
+    pendingVolumeRef.current = volumePercent
     setCurrentSrc(videoId)
-    // 플레이어가 아직 준비 안 됐으면 onReady 콜백이 대신 로드함
+    // 플레이어가 아직 준비 안 됐으면 onReady 콜백이 대신 로드/볼륨설정함
+    playerRef.current?.setVolume(volumePercent)
     playerRef.current?.loadVideoById(videoId)
   }, [])
 
