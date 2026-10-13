@@ -20,10 +20,10 @@
   border-bottom: 1.5px solid #a3a3a3;
   font-size: calc(11 * var(--u));
   color: #000;
-  font-weight: 600;
+  font-weight: 800;
 }
 .receipt__label {
-  font-weight: 700;
+  font-weight: 800;
 }
 .receipt__date {
   color: #000;
@@ -51,7 +51,7 @@
   padding: calc(8 * var(--u)) 0 calc(8 * var(--u));
   border-bottom: 1px dashed #c8c8c8;
   color: #000;
-  font-weight: 600;
+  font-weight: 800;
 }
 .receipt__list {
   list-style: none;
@@ -61,6 +61,7 @@
 .receipt__row {
   padding: calc(9 * var(--u)) 0;
   color: #000;
+  font-weight: 700;
 }
 /*
  * 곡명 칸이 좁아 한 줄이면 키워드·긴 곡명이 잘리므로 줄 수 제한 없이 줄바꿈한다.
@@ -75,11 +76,12 @@
 }
 .receipt__song {
   color: #000;
-  font-weight: 700;
+  font-weight: 900;
 }
 .receipt__artist {
   font-size: calc(9 * var(--u));
   color: #000;
+  font-weight: 700;
 }
 .receipt__row--total {
   border-top: 1px dashed #c8c8c8;
@@ -88,11 +90,11 @@
   padding: calc(12 * var(--u)) 0 calc(18 * var(--u));
 }
 .receipt__row--total .receipt__song {
-  font-weight: 600;
+  font-weight: 800;
   color: #000;
 }
 .receipt__total {
-  font-weight: 700;
+  font-weight: 900;
   color: #000;
 }
 .receipt__footer {
