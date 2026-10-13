@@ -11,7 +11,6 @@
   justify-content: center;
   margin-bottom: calc(32 * var(--u));
 }
-/* 색·굵기: Figma는 구분선이 모두 회색이고, 날짜 값·번호·아티스트·재생시간·키워드는 연한 회색 */
 .receipt__meta {
   display: flex;
   align-items: center;
@@ -30,13 +29,14 @@
 }
 .receipt__brand {
   margin-left: auto;
+  font-weight: 600;
 }
 
-/* 열 시작 위치: Figma 기준 N 0% / SONG 17% / ARTIST 53% / PLAYTIME 81% */
+/* 열 시작 위치: 참고 디자인 기준 N 0% / SONG 20% / ARTIST 65% (PLAYTIME 열 제거) */
 .receipt__head,
 .receipt__row {
   display: grid;
-  grid-template-columns: 17fr 36fr 28fr 19fr;
+  grid-template-columns: 17fr 55fr 40fr;
   align-items: center;
 }
 .receipt__head > *,
@@ -59,9 +59,12 @@
   padding: 0;
 }
 .receipt__row {
-  padding: calc(9 * var(--u)) 0;
+  padding: calc(14 * var(--u)) 0;
   color: #000;
-  font-weight: 700;
+}
+.receipt__index {
+  color: #9a9a9a;
+  font-weight: 400;
 }
 /*
  * 곡명 칸이 좁아 한 줄이면 키워드·긴 곡명이 잘리므로 줄 수 제한 없이 줄바꿈한다.
@@ -91,10 +94,6 @@
 }
 .receipt__row--total .receipt__song {
   font-weight: 800;
-  color: #000;
-}
-.receipt__total {
-  font-weight: 900;
   color: #000;
 }
 .receipt__footer {

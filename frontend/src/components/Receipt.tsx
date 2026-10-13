@@ -1,4 +1,3 @@
-import { sumPlaytime } from '../data/artists'
 import type { Artist } from '../data/types'
 import { LogoMark } from './Logo'
 import './Receipt.css'
@@ -15,7 +14,7 @@ export function Receipt({ artist }: { artist: Artist }) {
   return (
     <div className="receipt">
       <div className="receipt__logo">
-        <LogoMark size={44} />
+        <LogoMark size={60} />
       </div>
 
       <div className="receipt__meta">
@@ -28,25 +27,21 @@ export function Receipt({ artist }: { artist: Artist }) {
         <span>N.</span>
         <span>SONG</span>
         <span>ARTIST</span>
-        <span>PLAYTIME</span>
       </div>
 
       <ol className="receipt__list">
         {songs.map((s, i) => (
           <li key={s.title + s.artist} className="receipt__row">
-            <span>{String(i + 1).padStart(2, '0')}</span>
+            <span className="receipt__index">{String(i + 1).padStart(2, '0')}</span>
             <span className="receipt__song">{s.title}</span>
             <span className="receipt__artist">{s.artist}</span>
-            <span>{s.playtime}</span>
           </li>
         ))}
       </ol>
 
       <div className="receipt__row receipt__row--total">
-        <span>키워드</span>
+        <span className="receipt__index">키워드</span>
         <span className="receipt__song">{artist.keywords}</span>
-        <span className="receipt__artist">총</span>
-        <span className="receipt__total">{sumPlaytime(songs)}</span>
       </div>
 
       <p className="receipt__footer">
