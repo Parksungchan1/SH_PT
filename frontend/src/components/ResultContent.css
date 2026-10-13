@@ -10,9 +10,8 @@
 .result__photo,
 .result__album {
   position: relative;
-  /* Figma: 약 176 x 180이었으나 실제로는 너무 크게 보여서 축소함. 높이를 비율 단위로 고정해야
-     세로가 짧은 화면에서도 한 화면에 들어온다(폭은 화면에 맞춤) */
-  height: calc(140 * var(--u));
+  /* Figma: 약 176 x 180. 높이를 비율 단위로 고정해야 세로가 짧은 화면에서도 한 화면에 들어온다(폭은 화면에 맞춤) */
+  height: calc(180 * var(--u));
   border-radius: var(--radius-img);
   overflow: hidden;
   background: #eee;
